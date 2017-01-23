@@ -8,7 +8,7 @@ const Friend = ({friend}) => {
       className={isOnline ? 'online' : 'offline'}
       style={{color: 'blue', textAlign: 'center'}}>
       <img
-        alt={name + ' ' + surname}
+        alt={`${name} ${surname}`}
         width="100"
         height="100"
         src={imageUrl}
