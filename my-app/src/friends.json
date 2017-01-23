@@ -1,0 +1,30 @@
+[
+  {
+    "name": "John",
+    "surname": "Oliver",
+    "imageUrl": "http://i.imgur.com/zAWzZEN.jpg",
+    "isOnline": true,
+    "id": 1
+  },
+  {
+    "name": "Irena",
+    "surname": "Reanolds",
+    "imageUrl": "http://i.imgur.com/YpcYvqP.jpg",
+    "isOnline": false,
+    "id": 2
+  },
+  {
+    "name": "Brendan",
+    "surname": "Eich",
+    "imageUrl": "http://i.imgur.com/H7XJPr2.jpg",
+    "isOnline": false,
+    "id": 3
+  },
+  {
+    "name": "Elon",
+    "surname": "Musk",
+    "imageUrl": "http://i.imgur.com/bAuTIg1.jpg",
+    "isOnline": true,
+    "id": 4
+  }
+]
