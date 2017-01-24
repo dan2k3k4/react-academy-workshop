@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Friend from 'Friend';
+import FriendsGroup from 'FriendsGroup';
 import Toggle from 'Toggle';
 import Input from 'Input';
 import Counter from 'Counter';
@@ -84,34 +84,21 @@ class FriendsList extends Component {
           total={total}
         />
 
-        {onlineFilteredFriends.length > 0 &&
-        <div>
-          <h3>Online Users</h3>
-          {onlineFilteredFriends.map((friend, index) => {
-            return (
-                <Friend
-                  key={index}
-                  friend={friend}
-                  isFavourite={favourites.indexOf(friend.id) !== -1}
-                  toggleFavourite={() => this.toggleFavourite(friend.id)}
-                />
-              )
-            }
-          )}
-        </div>
-        }
+        <FriendsGroup
+          status={true}
+          showUsers={true}
+          filteredFriends={onlineFilteredFriends}
+          favourites={favourites}
+          toggleFavourite={this.toggleFavourite}
+        />
 
-        {showOfflineUsers && offlineFilteredFriends.length > 0 && <div>
-          <h3> Offline users </h3>
-          {offlineFilteredFriends.map((friend, index) => <Friend
-              key={index}
-              friend={friend}
-              isFavourite={favourites.indexOf(friend.id) !== -1}
-              toggleFavourite={() => this.toggleFavourite(friend.id)}
-            />
-          )}
-        </div>
-        }
+        <FriendsGroup
+          status={false}
+          showUsers={showOfflineUsers}
+          filteredFriends={offlineFilteredFriends}
+          favourites={favourites}
+          toggleFavourite={this.toggleFavourite}
+        />
 
         {offlineFilteredFriends.length === 0 &&
           onlineFilteredFriends.length === 0 &&
