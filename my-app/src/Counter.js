@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 
 const Counter = ({count = 0, total = 100}) => {
   return (
