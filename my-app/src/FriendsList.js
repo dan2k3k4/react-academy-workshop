@@ -20,50 +20,86 @@ class FriendsList extends Component {
     this.setState({searchText: e.target.value});
   }
 
+  getFriendById = (friendId) => {
+    const friends = this.props.friends;
+    let targetFriend;
+
+    friends.forEach(friend => {
+      if (friend.id === friendId) {
+        targetFriend = friend;
+      }
+    });
+
+    return targetFriend;
+  }
+
   toggleFavourite = (friendId) => {
     const favourites = this.state.favourites;
     const indexOfFriend = favourites.indexOf(friendId);
 
-    let updatedArray;
+    // TODO refactor this code
+    let friendUpdate = this.getFriendById(friendId);
+    if (friendUpdate) {
+      friendUpdate.isFavourite = !friendUpdate.isFavourite;
+    }
 
+    let updatedArray;
     if (indexOfFriend === -1) {
       updatedArray = [...favourites, friendId];
     } else {
-      updatedArray = favourites.filter((favourite, index) => index !== indexOfFriend);
+      updatedArray = favourites.filter(
+        (favourite, index) => index !== indexOfFriend
+      );
     }
-
-    this.setState({favourites: updatedArray})
+    this.setState({favourites: updatedArray});
   }
 
-  // TODO
-  filterByName = () => {
+  getOnlineUsers = () => {
+    const friends = this.props.friends;
 
+    let onlineUsers = [];
+
+    friends.forEach(friend => {
+      if (friend.isOnline) {
+        onlineUsers.push(friend)
+      }
+    });
+
+    return onlineUsers;
+  }
+
+  getMappedFriends = (friends, status, searchText) => {
+    let filteredFriends = [];
+
+    friends.forEach(friend => {
+      friend.isFavourite = this.state.favourites.indexOf(friend.id) !== -1;
+
+      if (status) {
+        filteredFriends.filter(friend => friend.isOnline);
+      } else {
+        filteredFriends.filter(friend => !friend.isOnline);
+      }
+    });
+
+    return filteredFriends;
   }
 
   render() {
     const {friends} = this.props;
-    const {showOfflineUsers, searchText, favourites} = this.state;
+    const {showOfflineUsers, searchText} = this.state;
 
-    const onlineUsers = [];
-    const offlineUsers = [];
+    const onlineUsers = this.getOnlineUsers();
 
-    friends.forEach(friend => {
-      if (friend.isOnline) {
-        onlineUsers.push(friend);
-      } else {
-        offlineUsers.push(friend);
-      }
-    });
-
-    const filteredFriends = friends.filter(friend =>
-      friend.name.indexOf(searchText) !== -1 ||
-      friend.surname.indexOf(searchText) !== -1);
+    const filteredFriends = friends.filter(friend => friend.name.indexOf(searchText) !== -1 || friend.surname.indexOf(searchText) !== -1);
     const onlineFilteredFriends = filteredFriends.filter(friend => friend.isOnline);
     const offlineFilteredFriends = filteredFriends.filter(friend => !friend.isOnline);
 
     const count = onlineFilteredFriends.length +
                 (showOfflineUsers ? offlineFilteredFriends.length : 0);
     const total = showOfflineUsers ? friends.length : onlineUsers.length;
+
+    const noUsersFound = offlineFilteredFriends.length === 0 &&
+                onlineFilteredFriends.length === 0;
 
     return (
       <div>
@@ -86,22 +122,17 @@ class FriendsList extends Component {
 
         <FriendsGroup
           status={true}
-          showUsers={true}
-          filteredFriends={onlineFilteredFriends}
-          favourites={favourites}
+          friends={onlineFilteredFriends}
           toggleFavourite={this.toggleFavourite}
         />
 
-        <FriendsGroup
+        {showOfflineUsers && <FriendsGroup
           status={false}
-          showUsers={showOfflineUsers}
-          filteredFriends={offlineFilteredFriends}
-          favourites={favourites}
+          friends={offlineFilteredFriends}
           toggleFavourite={this.toggleFavourite}
-        />
+        />}
 
-        {offlineFilteredFriends.length === 0 &&
-          onlineFilteredFriends.length === 0 &&
+        {noUsersFound &&
           <div>
             No users found
           </div>

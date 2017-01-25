@@ -1,0 +1,50 @@
+.app {
+  position: relative;
+  height: 500px;
+  overflow-y: scroll;
+  border: 1px tomato solid;
+}
+
+.content {
+  min-height: 3000px;
+}
+
+.dialog {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: white;
+  background-image: url('https://source.unsplash.com/category/nature/120x120');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 3px solid #3c3c3c;
+  height: 300px;
+  width: 300px;
+  padding: 20px;
+  box-shadow: 0 0 40px 8px rgba(0, 0, 0, 0.35);
+}
+
+.dialog > div {
+  background-color: tomato;
+}
+
+.fadein-enter {
+  opacity: 0.01;
+}
+
+.fadein-enter.fadein-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.fadein-leave {
+  opacity: 1;
+}
+
+.fadein-leave.fadein-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}

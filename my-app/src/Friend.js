@@ -3,13 +3,29 @@ import Favourite from 'Favourite';
 
 class Friend extends Component {
 
+  shouldComponentUpdate(nextProps) {
+    const {friend:{isOnline, isFavourite}} = nextProps;
+    const currentFavourite = this.props.friend.isFavourite;
+    const currentOnline = this.props.friend.isOnline;
+
+    return currentFavourite === isFavourite || currentOnline !== isOnline;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // TODO fixme
+    if (this.props.friend.isFavourite === true && nextProps.friend.isFavourite === false) {
+      alert("😢");
+    }
+  }
+
   render() {
-    const {friend, isFavourite, toggleFavourite} = this.props;
+    const {friend, toggleFavourite} = this.props;
     const {
       imageUrl,
       name,
       surname,
-      isOnline = false
+      isOnline,
+      isFavourite
     } = friend;
 
     return (
