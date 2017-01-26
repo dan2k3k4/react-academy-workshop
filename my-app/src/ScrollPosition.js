@@ -1,19 +1,19 @@
 import React from 'react';
+import styled from 'styled-components';
 
-const ScrollPosition = ({scrollPosition, containerWidth}) => {
-  const padded = 120;
+const StyledDiv = styled.div`
+  position: relative;
+  background: 'tomato';
+`;
+
+const ScrollPosition = props => {
 
   return (
-    <div style={{
-      position: "relative",
-      top: scrollPosition,
-      left: (scrollPosition < containerWidth - padded ?
-              scrollPosition :
-              containerWidth - padded
-            )
+    <StyledDiv {...props} style={{
+      "top": props.scrollPosition
     }}>
-      Scroll: {scrollPosition}
-    </div>
+        Scroll: {props.scrollPosition}
+    </StyledDiv>
   )
 }
 
