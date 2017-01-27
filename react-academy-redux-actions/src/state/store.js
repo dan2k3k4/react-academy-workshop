@@ -10,11 +10,13 @@ const middleware = applyMiddleware(logger, thunk);
 import counterReducer from './reducers/counter-reducer';
 import usersReducer from './reducers/users-reducer';
 import authReducer from './reducers/auth-reducer';
+import onlineStatusReducer from './reducers/online-status-reducer';
 
 const reducers = combineReducers({
   counter: counterReducer,
   users: usersReducer,
-  auth: authReducer
+  auth: authReducer,
+  onlineStatus: onlineStatusReducer
 });
 
 const store = createStore(reducers, middleware);

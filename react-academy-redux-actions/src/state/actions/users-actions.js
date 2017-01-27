@@ -9,6 +9,9 @@ export const setLoading = createAction('SET_LOADING');
 export const loadUsers = () => dispatch => {
   dispatch(setLoading(true));
   setTimeout(() => {
-    dispatch(receiveUsers([{name: 'john', id: 7}, {name: 'monica', id: 5}]))
-  }, 3000);
+    dispatch(receiveUsers([
+      {name: 'john', id: 7, isOnline: false},
+      {name: 'monica', id: 5, isOnline: true}
+    ]))
+  }, 1000);
 }

@@ -13,9 +13,9 @@ const init = () => {
   store.dispatch(decrement(1));
   store.dispatch(decrement(1));
 
-  store.dispatch(addUser({name: 'kitze', id: 1}));
-  store.dispatch(addUser({name: 'john', id: 2}));
-  store.dispatch(addUser({name: 'ralf', id: 3}));
+  store.dispatch(addUser({name: 'kitze', id: 1, isOnline: false}));
+  store.dispatch(addUser({name: 'john', id: 2, isOnline: false}));
+  store.dispatch(addUser({name: 'ralf', id: 3, isOnline: true}));
   store.dispatch(removeUser(2));
 
   store.dispatch(incrementIfOdd());
@@ -23,9 +23,8 @@ const init = () => {
   store.dispatch(setUser({name: 'kitze', token: 'adlgkaldgnadjga10384134311'}));
   setTimeout(() => {
     store.dispatch(logoutUser());
-  }, 3000);
+  }, 500);
 
 }
 
 export default init;
-

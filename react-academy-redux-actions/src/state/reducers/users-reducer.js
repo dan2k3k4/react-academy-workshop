@@ -1,24 +1,15 @@
-import {handleActions, createAction} from 'redux-actions';
-
-//actions
-export const addUser = createAction('ADD_USER');
-export const removeUser = createAction('REMOVE_USER');
-export const receiveUsers = createAction('RECEIVE_USERS');
-export const setLoading = createAction('SET_LOADING');
-
-//thunks
-export const loadUsers = () => dispatch => {
-  dispatch(setLoading(true));
-  setTimeout(() => {
-    dispatch(receiveUsers([{name: 'john', id: 7}, {name: 'monica', id: 5}]));
-  }, 3000);
-}
+import {handleActions} from 'redux-actions';
+import {
+  addUser,
+  removeUser,
+  receiveUsers,
+  setLoading} from 'state/actions/users-actions';
 
 //reducer
 export default handleActions({
   [addUser]: (state, {payload:user}) => ({
     ...state,
-    list: [...state.list, user]
+    list: [...state.list, {...user, isOnline: true}]
   }),
   [removeUser]: (state, {payload: userId}) => ({
     ...state,
@@ -31,6 +22,9 @@ export default handleActions({
   [receiveUsers]: (state, {payload:newUsers}) => ({
     ...state,
     loading: false,
-    list: [...state.list, ...newUsers]
+    list: [...state.list, ...newUsers.map(user => {
+      user.isOnline = true;
+      return user;
+    })]
   })
 }, {list: [], loading: false});
